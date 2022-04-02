@@ -1,14 +1,14 @@
 <template>
 	<ion-app>
 		<ion-toolbar color="dark">
-			<ion-title>Default Buttons</ion-title>
+			<ion-title>Marvel Studios</ion-title>
 		</ion-toolbar>
 
 		<ion-toolbar>
-			<nav>
+			<!-- <nav>
 				<router-link to="/">Home</router-link> |
 				<router-link to="/about">About</router-link>
-			</nav>
+			</nav> -->
 		</ion-toolbar>
 
 		<ion-content>

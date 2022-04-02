@@ -1,28 +1,34 @@
 <template>
-	<div>
-		<ion-card v-for="post in posts" :key="post.data.id" color="dark">
-			<ion-card-header>
-				<ion-image :src="post.data.thumbnail" />
-				<ion-card-title>{{ post.data.title }}</ion-card-title>
-			</ion-card-header>
-			<ion-card-content>
-				<p>{{ post.data.content }}</p>
-			</ion-card-content>
-		</ion-card>
-	</div>
+	<ion-card
+		v-for="post in posts"
+		:key="post.data.id"
+		color="medium"
+		mode="ios"
+	>
+		<template v-if="post.data.thumbnail.startsWith('https://')">
+			<img :src="post.data.thumbnail" alt="image" />
+		</template>
+		<ion-card-content>
+			<ion-label color="light">{{ post.data.title }}</ion-label>
+			<ion-button
+				color="success"
+				@click="viewMore(post.data)"
+				expand="full"
+				>View More</ion-button
+			>
+		</ion-card-content>
+	</ion-card>
 </template>
 
 <script>
 import axios from "axios";
-import {
-	IonCard,
-	IonCardHeader,
-	IonCardTitle,
-	IonCardContent,
-	IonImage,
-} from "@ionic/vue";
+import { IonCard, IonLabel, IonCardContent } from "@ionic/vue";
 export default {
-	components: { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonImage },
+	components: {
+		IonCard,
+		IonLabel,
+		IonCardContent,
+	},
 	data() {
 		return {
 			posts: [],
@@ -33,8 +39,18 @@ export default {
 			"https://www.reddit.com/r/marvelstudios.json"
 		);
 		this.posts = response.data.data.children;
+		console.log(this.posts);
+	},
+	methods: {
+		viewMore(post) {
+			this.$router.push({ name: "detail", params: { post } });
+		},
 	},
 };
 </script>
 
-<style></style>
+<style>
+ion-card {
+	margin: 1rem;
+}
+</style>
